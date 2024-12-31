@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Time and Date</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+            color: #f1f1f1;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        #time, #date, #message {
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        #message {
+            font-weight: bold;
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Live Time and Date</h1>
+        <div id="date"></div>
+        <div id="time"></div>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        function updateTimeAndDate() {
+            const now = new Date();
+
+            // Format date
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = now.toLocaleDateString(undefined, options);
+
+            // Format time
+            const formattedTime = now.toLocaleTimeString();
+
+            // Update DOM elements
+            document.getElementById('date').textContent = formattedDate;
+            document.getElementById('time').textContent = formattedTime;
+
+            // Check for New Year's message
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            if (hours === 0 && minutes === 0 && seconds === 0) {
+                document.getElementById('message').textContent = 'Happy New Year!';
+            } else {
+                document.getElementById('message').textContent = '';
+            }
+        }
+
+        // Update time and date every second
+        setInterval(updateTimeAndDate, 1000);
+        updateTimeAndDate();
+    </script>
+</body>
+</html>
