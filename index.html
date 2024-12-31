@@ -81,8 +81,8 @@
         <div id="message"></div>
     </div>
     <div class="fireworks" id="fireworks"></div>
-    <audio id="newYearSong" src="your-song-file.mp3"></audio>
-    <audio id="idleMusic" src="your-idle-music.mp3" loop autoplay></audio>
+    <audio id="newYearSong" src="Surf Curse - Freaks [Official Audio].mp3"></audio>
+    <audio id="idleMusic" src="Wii Music - Gaming Background Music (HD).mp3" loop autoplay></audio>
 
     <script>
         function updateTimeAndDate() {
@@ -109,7 +109,7 @@
             const isNewYear = month === 0 && date === 1 && hours === 0 && minutes === 0;
 
             if (isNewYear && seconds === 0) {
-                document.body.style.background = "url('new-year-background.jpg') no-repeat center center/cover";
+                document.body.style.background = "url('gettyimages-1499013145.jpg') no-repeat center center/cover";
                 document.getElementById('message').textContent = 'Happy New Year!';
                 launchFireworks();
                 playNewYearSong();
