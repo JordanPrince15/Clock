@@ -15,6 +15,7 @@
             background-color: #1e1e2f;
             color: #f1f1f1;
             text-align: center;
+            overflow: hidden;
         }
 
         .container {
@@ -22,6 +23,7 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 10;
         }
 
         h1 {
@@ -38,6 +40,36 @@
             font-weight: bold;
             color: #ffcc00;
         }
+
+        .fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: transparent;
+            border-radius: 50%;
+            animation: explode 1s ease-out infinite;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: scale(1) translate(0, 0);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5) translate(100px, 100px);
+            }
+        }
     </style>
 </head>
 <body>
@@ -47,6 +79,7 @@
         <div id="time"></div>
         <div id="message"></div>
     </div>
+    <div class="fireworks" id="fireworks"></div>
 
     <script>
         function updateTimeAndDate() {
@@ -63,21 +96,49 @@
             document.getElementById('date').textContent = formattedDate;
             document.getElementById('time').textContent = formattedTime;
 
-            // Check for New Year's message
+            // Check for New Year's message and fireworks
             const hours = now.getHours();
             const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
+            const month = now.getMonth();
+            const date = now.getDate();
 
-            if (hours === 0 && minutes === 0 && seconds === 0) {
+            const isNewYear = month === 0 && date === 1;
+
+            if (isNewYear) {
                 document.getElementById('message').textContent = 'Happy New Year!';
+                launchFireworks();
             } else {
                 document.getElementById('message').textContent = '';
+                clearFireworks();
             }
+        }
+
+        function launchFireworks() {
+            const fireworksContainer = document.getElementById('fireworks');
+            fireworksContainer.innerHTML = '';
+
+            for (let i = 0; i < 20; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                firework.style.top = Math.random() * 100 + '%';
+                firework.style.left = Math.random() * 100 + '%';
+                firework.style.background = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+                firework.style.animationDelay = `${Math.random()}s`;
+                fireworksContainer.appendChild(firework);
+            }
+        }
+
+        function clearFireworks() {
+            document.getElementById('fireworks').innerHTML = '';
         }
 
         // Update time and date every second
         setInterval(updateTimeAndDate, 1000);
         updateTimeAndDate();
+    </script>
+</body>
+</html>
+
     </script>
 </body>
 </html>
